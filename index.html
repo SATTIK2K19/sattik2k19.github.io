@@ -4,48 +4,481 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My First Portfolio</title>
+  <meta name="description" content="My web developer portfolio, skills and projects.">
+  <title>My Portfolio | Web Developer</title>
+
   <style>
-    body {
+    /* 1. Basic settings */
+    * {
       margin: 0;
-      padding: 40px 20px;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --bg: #0b1120;
+      --card: #121c30;
+      --text: #f1f5f9;
+      --muted: #a5b4c8;
+      --accent: #38bdf8;
+      --border: #263449;
+    }
+
+    body {
       font-family: Arial, sans-serif;
-      background: #111827;
-      color: white;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1100px, 90%);
+      margin: auto;
+    }
+
+    /* 2. Navigation bar */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #0b1120f2;
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav {
+      min-height: 72px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      color: var(--accent);
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .menu-btn {
+      display: none;
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    /* 3. Hero section */
+    .hero {
+      min-height: 78vh;
+      display: flex;
+      align-items: center;
+      padding: 80px 0;
+    }
+
+    .hero-content {
+      max-width: 760px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 6px 14px;
+      border: 1px solid #28506a;
+      border-radius: 30px;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 7vw, 4.8rem);
+      line-height: 1.12;
+      margin-bottom: 22px;
+    }
+
+    .highlight {
+      color: var(--accent);
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 620px;
+      margin-bottom: 28px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #06111d;
+      padding: 12px 22px;
+      border-radius: 9px;
+      font-weight: bold;
+      border: 1px solid var(--accent);
+      cursor: pointer;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      opacity: 0.9;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border-color: var(--border);
+      margin-left: 10px;
+    }
+
+    /* 4. Common section styles */
+    section {
+      padding: 76px 0;
+      scroll-margin-top: 70px;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .section-intro {
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+
+    /* 5. About and skills */
+    .about-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 28px;
+      border-radius: 16px;
+      color: var(--muted);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .skill {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 22px;
+      border-radius: 14px;
+    }
+
+    .skill h3 {
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .skill p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    /* 6. Project cards */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .project {
+      display: flex;
+      flex-direction: column;
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 24px;
+      border-radius: 16px;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .project:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+    }
+
+    .project-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+
+    .project p {
+      color: var(--muted);
+      margin: 10px 0 18px;
+      flex-grow: 1;
+    }
+
+    .project a {
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    /* 7. Contact section */
+    .contact-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 30px;
+      border-radius: 16px;
       text-align: center;
     }
 
-    .card {
-      max-width: 600px;
-      margin: 50px auto;
-      padding: 30px 20px;
-      background: #1f2937;
-      border-radius: 16px;
+    .contact-box p {
+      color: var(--muted);
+      margin: 12px 0 24px;
     }
 
-    h1 { color: #a78bfa; }
+    footer {
+      padding: 25px 0;
+      text-align: center;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
 
-    p { line-height: 1.7; }
+    /* 8. Mobile responsive design */
+    @media (max-width: 760px) {
+      .menu-btn {
+        display: block;
+      }
 
-    a {
-      display: inline-block;
-      margin-top: 15px;
-      padding: 12px 20px;
-      border-radius: 8px;
-      background: #7c3aed;
-      color: white;
-      text-decoration: none;
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        right: 0;
+        padding: 22px 5%;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .skills-grid,
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 90px 0 60px;
+      }
+
+      section {
+        padding: 55px 0;
+      }
+
+      .btn-outline {
+        margin: 12px 0 0;
+      }
     }
   </style>
 </head>
+
 <body>
-  <div class="card">
-    <h1>Hi, I'm a Web Developer!</h1>
-    <p>I'm learning to build beautiful websites.</p>
-    <p>This is my first published portfolio website.</p>
-    <a href="https://github.com/maximas038">
-  Visit My GitHub Profile
-</a>
-  </div>
+
+  <!-- Navigation -->
+  <header>
+    <nav class="container">
+      <a class="logo" href="#home">MyPortfolio.</a>
+
+      <button
+        class="menu-btn"
+        id="menuBtn"
+        aria-expanded="false"
+        aria-controls="navLinks"
+        aria-label="Toggle navigation"
+      >☰ Menu</button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero container" id="home">
+      <div class="hero-content">
+        <span class="tag">👋 Welcome to my portfolio</span>
+
+        <h1>
+          Hi, I'm a <span class="highlight">Web Developer.</span>
+        </h1>
+
+        <p>
+          I'm learning to build beautiful, responsive and
+          user-friendly websites. I turn ideas into websites
+          using HTML, CSS and JavaScript.
+        </p>
+
+        <a href="#projects" class="btn">Explore My Projects</a>
+        <a href="#contact" class="btn btn-outline">Contact Me</a>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about">
+      <div class="container">
+        <h2 class="section-title">About Me</h2>
+        <p class="section-intro">A little bit about my journey.</p>
+
+        <div class="about-box">
+          I'm an aspiring web developer who enjoys learning
+          new technologies and creating websites. I'm currently
+          improving my HTML, CSS and JavaScript skills by building
+          real projects. My goal is to create useful websites for
+          people and businesses.
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+      <div class="container">
+        <h2 class="section-title">My Skills</h2>
+        <p class="section-intro">
+          Technologies I'm learning and practising.
+        </p>
+
+        <div class="skills-grid">
+          <article class="skill">
+            <h3>HTML</h3>
+            <p>Building the structure and content of websites.</p>
+          </article>
+
+          <article class="skill">
+            <h3>CSS</h3>
+            <p>Creating layouts, colours and responsive designs.</p>
+          </article>
+
+          <article class="skill">
+            <h3>JavaScript</h3>
+            <p>Adding interactivity and dynamic behaviour.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+      <div class="container">
+        <h2 class="section-title">My Projects</h2>
+        <p class="section-intro">
+          Some projects from my learning journey.
+        </p>
+
+        <div class="projects-grid">
+          <article class="project">
+            <div class="project-icon">✅</div>
+            <h3>To-Do List</h3>
+            <p>
+              A task manager where users can add, complete
+              and delete tasks.
+            </p>
+            <a href="https://github.com/" target="_blank"
+               rel="noopener noreferrer">View code ↗</a>
+          </article>
+
+          <article class="project">
+            <div class="project-icon">💼</div>
+            <h3>Portfolio Website</h3>
+            <p>
+              A responsive personal website to introduce
+              myself and showcase my skills.
+            </p>
+            <a href="https://github.com/" target="_blank"
+               rel="noopener noreferrer">View code ↗</a>
+          </article>
+
+          <article class="project">
+            <div class="project-icon">📝</div>
+            <h3>Contact Form</h3>
+            <p>
+              A form project to practise input fields
+              and JavaScript events.
+            </p>
+            <a href="https://github.com/" target="_blank"
+               rel="noopener noreferrer">View code ↗</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <div class="container">
+        <div class="contact-box">
+          <h2 class="section-title">Let's Connect!</h2>
+          <p>
+            Have a project idea or want to work together?
+            Send me an email.
+          </p>
+          <a class="btn" id="emailBtn"
+             href="mailto:YOUR-EMAIL@example.com">
+            Email Me
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© <span id="year"></span> MyPortfolio. Built with HTML, CSS & JavaScript.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.getElementById("navLinks");
+
+    menuBtn.addEventListener("click", function () {
+      const isOpen = navLinks.classList.toggle("open");
+      menuBtn.setAttribute("aria-expanded", isOpen);
+    });
+
+    // Close mobile menu after choosing a section
+    document.querySelectorAll("#navLinks a").forEach(function (link) {
+      link.addEventListener("click", function () {
+        navLinks.classList.remove("open");
+        menuBtn.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    // Automatically show the current year
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
+
 </body>
 </html>
